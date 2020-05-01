@@ -1132,22 +1132,41 @@ def spa_calculate(spa):
 
 
 if __name__ == '__main__':
-    spa = spa_data();  ##declare the SPA structure
+    spa = spa_data()  ##define a spa object
 
     ##enter required input values into SPA structure
 
-    spa.year          = 2003
-    spa.month         = 10
-    spa.day           = 17
+    # spa.year          = 2003
+    # spa.month         = 10
+    # spa.day           = 17
+    # spa.hour          = 12
+    # spa.minute        = 30
+    # spa.second        = 30
+    # spa.timezone      = -7.0
+    # spa.delta_ut1     = 0
+    # spa.delta_t       = 67
+    # spa.longitude     = -105.1786
+    # spa.latitude      = 39.742476
+    # spa.elevation     = 1830.14
+    # spa.pressure      = 820
+    # spa.temperature   = 11
+    # spa.slope         = 30
+    # spa.azm_rotation  = -10
+    # spa.atmos_refract = 0.5667
+    # spa.function      = SPA_FUNC.SPA_ALL
+
+    spa.year          = 2020
+    spa.month         = 5
+    spa.day           = 1
     spa.hour          = 12
     spa.minute        = 30
     spa.second        = 30
-    spa.timezone      = -7.0
+    spa.timezone      = +8.0
     spa.delta_ut1     = 0
     spa.delta_t       = 67
-    spa.longitude     = -105.1786
-    spa.latitude      = 39.742476
-    spa.elevation     = 1830.14
+    spa.longitude     = 110+24/60+32/3600
+    spa.latitude      = 21+13/60+12/3600
+    spa.elevation     = 10
     spa.pressure      = 820
     spa.temperature   = 11
     spa.slope         = 30

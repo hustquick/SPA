@@ -8,3 +8,4 @@
 *.texpadtmp
 *.pdf
 *.idea
+__pycache__/*
