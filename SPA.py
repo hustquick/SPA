@@ -1,5 +1,6 @@
 import numpy as np
 from enum import Enum
+from copy import deepcopy
 
 PI = np.pi
 SUN_RADIUS = 0.26667
@@ -139,7 +140,7 @@ class TERM(Enum):
     A = 0
     B = 1
     C = 2
-    # COUNT = 3
+    COUNT = 3
 
 class TERM_X(Enum):
     X0 = 0
@@ -645,8 +646,8 @@ def julian_day(year, month, day, hour, minute, second, dut1, tz):
         month += 12
         year -= 1
 
-    julian_day = int(365.25 * (year + 4176)) + \
-                 int(30.6001 * (month+1)) + day_decimal - 1524.5
+    julian_day = int(365.25*(year+4716)) + int(30.6001*(month+1)) + \
+                 day_decimal - 1524.5
 
     if julian_day > 2299160:
         a = int(year/100)
@@ -981,14 +982,14 @@ def calculate_geocentric_sun_right_ascension_and_declination(spa):
 
 def calculate_eot_and_sun_rise_transit_set(spa):
     h0_prime = -1*(SUN_RADIUS + spa.atmos_refract)
-    sun_rts  = spa
+    sun_rts  = deepcopy(spa)
     m = sun_mean_longitude(spa.jme)
     spa.eot = eot(m, spa.alpha, spa.del_psi, spa.epsilon)
 
     sun_rts.hour = sun_rts.minute = sun_rts.second = 0
     sun_rts.delta_ut1 = sun_rts.timezone = 0.0
 
-    sun_rts.jd = julian_day (sun_rts.year,   sun_rts.month,  sun_rts.day,       sun_rts.hour,
+    sun_rts.jd = julian_day(sun_rts.year,   sun_rts.month,  sun_rts.day,       sun_rts.hour,
 		                     sun_rts.minute, sun_rts.second, sun_rts.delta_ut1, sun_rts.timezone)
 
     calculate_geocentric_sun_right_ascension_and_declination(sun_rts)
@@ -1123,7 +1124,7 @@ if __name__ == '__main__':
     if result == 0:  ##check for SPA errors
         ##display the results inside the SPA structure
 
-        print("Julian Day:    %.6e\n"%spa.jd)
+        print("Julian Day:    %.6f\n"%spa.jd)
         print("L:             %.6e degrees\n"%spa.l)
         print("B:             %.6e degrees\n"%spa.b)
         print("R:             %.6f AU\n"%spa.r)
@@ -1139,10 +1140,10 @@ if __name__ == '__main__':
         sec = 60.0*(min - int(min))
         print("Sunrise:       %02d:%02d:%02d Local Time\n"%(int(spa.sunrise), int(min), int(sec)))
 
-    #     min = 60.0*(spa.sunset - (int)(spa.sunset))
-    #     sec = 60.0*(min - (int)min)
-    #     print("Sunset:        %02d:%02d:%02d Local Time\n", (int)(spa.sunset), (int)min, (int)sec)
-    #
+        min = 60.0*(spa.sunset - int(spa.sunset))
+        sec = 60.0*(min - int(min))
+        print("Sunset:        %02d:%02d:%02d Local Time\n"%(int(spa.sunset), int(min), int(sec)))
+
     else:
         print("SPA Error Code: %d\n"%result)
 
