@@ -88,8 +88,8 @@ class spa_data():
     x3 = None         ##argument latitude (moon) [degrees]
     x4 = None         ##ascending longitude (moon) [degrees]
 
-    del_psi = [None]    ##nutation longitude [degrees]
-    del_epsilon = [None]  ##nutation obliquity [degrees]
+    del_psi = np.array([0.0])    ##nutation longitude [degrees]
+    del_epsilon = np.array([0.0])  ##nutation obliquity [degrees]
     epsilon0 = None   ##ecliptic mean obliquity [arc seconds]
     epsilon = None    ##ecliptic true obliquity  [degrees]
 
@@ -103,8 +103,8 @@ class spa_data():
 
     h = None          ##observer hour angle [degrees]
     xi = None         ##sun equatorial horizontal parallax [degrees]
-    del_alpha = [None]  ##sun right ascension parallax [degrees]
-    delta_prime = [None] ##topocentric sun declination [degrees]
+    del_alpha = np.array([0.0])  ##sun right ascension parallax [degrees]
+    delta_prime = np.array([0.0]) ##topocentric sun declination [degrees]
     alpha_prime = None ##topocentric sun right ascension [degrees]
     h_prime = None    ##topocentric local hour angle [degrees]
 
