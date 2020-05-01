@@ -1,7 +1,7 @@
 """
-      Solar Position Algorithm (SPA)     
-                   for                   
-        Solar Radiation Application      
+    Solar Position Algorithm (SPA)
+                for
+    Solar Radiation Application
    NOTICE
    Copyright (C) 2008-2011 Alliance for Sustainable Energy, LLC, All Rights Reserved
 
@@ -43,30 +43,21 @@ from copy import deepcopy
 PI = np.pi
 SUN_RADIUS = 0.26667
 
-L_COUNT = 6
-B_COUNT = 2
-R_COUNT = 5
-Y_COUNT = 63
-
-L_MAX_SUBCOUNT = 64
-B_MAX_SUBCOUNT = 5
-R_MAX_SUBCOUNT = 40
-
 class spa_data():
-        ##----------------------INPUT VALUES------------------------
-    year = None            ## 4-digit year,      valid range: -2000 to 6000, error code: 1
-    month = None          ## 2-digit month,         valid range: 1 to  12,  error code: 2
-    day = None            ## 2-digit day,           valid range: 1 to  31,  error code: 3
-    hour = None           ## Observer local hour,   valid range: 0 to  24,  error code: 4
-    minute = None         ## Observer local minute, valid range: 0 to  59,  error code: 5
-    second = None      ## Observer local second, valid range: 0 to <60,  error code: 6
+#----------------------INPUT VALUES------------------------
+    year = None             # 4-digit year,      valid range: -2000 to 6000, error code: 1
+    month = None            # 2-digit month,         valid range: 1 to  12,  error code: 2
+    day = None              # 2-digit day,           valid range: 1 to  31,  error code: 3
+    hour = None             # Observer local hour,   valid range: 0 to  24,  error code: 4
+    minute = None           # Observer local minute, valid range: 0 to  59,  error code: 5
+    second = None           # Observer local second, valid range: 0 to <60,  error code: 6
 	
-    delta_ut1 = None    ## Fractional second difference between UTC and UT which is used
-                         ## to adjust UTC for earth's irregular rotation rate and is derived
-	                     ## from observation only and is reported in this bulletin:
-	                     ## http:##maia.usno.navy.mil/ser7/ser7.dat,
-	                     ## where delta_ut1 = DUT1
-	                     ## valid range: -1 to 1 second (exclusive), error code 17
+    delta_ut1 = None        # Fractional second difference between UTC and UT which is used
+# to adjust UTC for earth's irregular rotation rate and is derived
+# from observation only and is reported in this bulletin:
+# http:##maia.usno.navy.mil/ser7/ser7.dat,
+# where delta_ut1 = DUT1
+# valid range: -1 to 1 second (exclusive), error code 17
 
     delta_t = None     ## Difference between earth rotation time and terrestrial time
                          ## It is derived from observation only and is reported in this
@@ -178,7 +169,6 @@ class TERM(Enum):
     A = 0
     B = 1
     C = 2
-    COUNT = 3
 
 class TERM_X(Enum):
     X0 = 0
@@ -186,36 +176,27 @@ class TERM_X(Enum):
     X2 = 2
     X3 = 3
     X4 = 4
-    COUNT = 5
-    Y_COUNT = COUNT
 
 class TERM_P(Enum):
     PSI_A = 0
     PSI_B = 1
     EPS_C = 2
     EPS_D = 3
-    PE_COUNT = 4
 
 class JD(Enum):
     MINUS = 0
     ZERO = 1
     PLUS = 2
-    COUNT = 3
 
 class SUN(Enum):
     TRANSIT = 0
     RISE = 1
     SET = 2
-    COUNT = 3
 
 # enum {TERM_X0, TERM_X1, TERM_X2, TERM_X3, TERM_X4, TERM_X_COUNT}
 # enum {TERM_PSI_A, TERM_PSI_B, TERM_EPS_C, TERM_EPS_D, TERM_PE_COUNT}
 # enum {JD_MINUS, JD_ZERO, JD_PLUS, JD_COUNT}
 # enum {SUN_TRANSIT, SUN_RISE, SUN_SET, SUN_COUNT}
-
-l_subcount = [64, 34, 20, 7, 3, 1]
-b_subcount = [5, 2]
-r_subcount = [40, 10, 6, 2, 1]
 
 ############################
 ### Earth Periodic Terms
@@ -451,6 +432,21 @@ R_TERMS = [
     ]
 ]
 
+L_COUNT = len(L_TERMS)
+l_subcount = []
+for i in range(L_COUNT):
+    l_subcount.append(len(L_TERMS[i]))
+
+B_COUNT = len(B_TERMS)
+b_subcount = []
+for i in range(B_COUNT):
+    b_subcount.append(len(B_TERMS[i]))
+
+R_COUNT = len(R_TERMS)
+r_subcount = []
+for i in range(R_COUNT):
+    r_subcount.append(len(R_TERMS[i]))
+
 
 ############################
 ### Periodic Terms for the nutation in longitude and obliquity
@@ -521,6 +517,8 @@ Y_TERMS = [
     [0,0,3,2,2],
     [2,-1,0,2,2],
 ]
+
+Y_COUNT = len(Y_TERMS)
 
 PE_TERMS = [
     [-171996,-174.2,92025,8.9],
@@ -763,7 +761,7 @@ def ascending_longitude_moon(jce):
 
 def xy_term_summation(i, x):
     sum=0
-    for j in range(TERM_X.Y_COUNT.value):
+    for j in range(len(TERM_X)):
         sum += x[j]*Y_TERMS[i][j]
     return sum
 
@@ -833,7 +831,7 @@ def right_ascension_parallax_and_topocentric_dec(latitude, elevation,
     x =              np.cos(u) + elevation*np.cos(lat_rad)/6378140.0
 
     delta_alpha_rad =      np.arctan2(                - x*np.sin(xi_rad) *np.sin(h_rad),
-                                  np.cos(delta_rad) - x*np.sin(xi_rad) *np.cos(h_rad));
+                                  np.cos(delta_rad) - x*np.sin(xi_rad) *np.cos(h_rad))
 
     delta_prime[0] = np.rad2deg(np.arctan2((np.sin(delta_rad) - y*np.sin(xi_rad))*np.cos(delta_alpha_rad),
                                   np.cos(delta_rad) - x*np.sin(xi_rad) *np.cos(h_rad)))
@@ -927,7 +925,7 @@ def sun_hour_angle_at_rise_set(latitude, delta_zero, h0_prime):
     argument       = (np.sin(np.deg2rad(h0_prime)) - np.sin(latitude_rad)*np.sin(delta_zero_rad)) / \
                                                      (np.cos(latitude_rad)*np.cos(delta_zero_rad))
 
-    if (abs(argument) <= 1):
+    if abs(argument) <= 1:
         h0 = limit_degrees180(np.rad2deg(np.arccos(argument)))
 
     return h0
@@ -992,7 +990,7 @@ def calculate_geocentric_sun_right_ascension_and_declination(spa):
     spa.theta = geocentric_longitude(spa.l)
     spa.beta  = geocentric_latitude(spa.b)
 
-    x = np.zeros(TERM_X.COUNT.value)
+    x = np.zeros(len(TERM_X))
 
     x[TERM_X.X0.value] = spa.x0 = mean_elongation_moon_sun(spa.jce)
     x[TERM_X.X1.value] = spa.x1 = mean_anomaly_sun(spa.jce)
@@ -1035,15 +1033,15 @@ def calculate_eot_and_sun_rise_transit_set(spa):
 
     sun_rts.delta_t = 0
     sun_rts.jd -= 1
-    alpha = np.zeros(JD.COUNT.value)
-    delta = np.zeros(JD.COUNT.value)
-    for i in range(JD.COUNT.value):
+    alpha = np.zeros(len(JD))
+    delta = np.zeros(len(JD))
+    for i in range(len(JD)):
         calculate_geocentric_sun_right_ascension_and_declination(sun_rts)
         alpha[i] = sun_rts.alpha
         delta[i] = sun_rts.delta
         sun_rts.jd += 1
 
-    m_rts = np.zeros(SUN.COUNT.value)
+    m_rts = np.zeros(len(SUN))
     m_rts[SUN.TRANSIT.value] = approx_sun_transit_time(alpha[JD.ZERO.value], spa.longitude, nu)
     h0 = sun_hour_angle_at_rise_set(spa.latitude, delta[JD.ZERO.value], h0_prime)
 
@@ -1051,12 +1049,12 @@ def calculate_eot_and_sun_rise_transit_set(spa):
 
         approx_sun_rise_and_set(m_rts, h0)
 
-        nu_rts = np.zeros(SUN.COUNT.value)
-        alpha_prime = np.zeros(SUN.COUNT.value)
-        delta_prime = np.zeros(SUN.COUNT.value)
-        h_prime = np.zeros(SUN.COUNT.value)
-        h_rts = np.zeros(SUN.COUNT.value)
-        for i in range(SUN.COUNT.value):
+        nu_rts = np.zeros(len(SUN))
+        alpha_prime = np.zeros(len(SUN))
+        delta_prime = np.zeros(len(SUN))
+        h_prime = np.zeros(len(SUN))
+        h_rts = np.zeros(len(SUN))
+        for i in range(len(SUN)):
 
             nu_rts[i]      = nu + 360.985647*m_rts[i]
 
@@ -1136,43 +1134,43 @@ if __name__ == '__main__':
 
     ##enter required input values into SPA structure
 
-    # spa.year          = 2003
-    # spa.month         = 10
-    # spa.day           = 17
-    # spa.hour          = 12
-    # spa.minute        = 30
-    # spa.second        = 30
-    # spa.timezone      = -7.0
-    # spa.delta_ut1     = 0
-    # spa.delta_t       = 67
-    # spa.longitude     = -105.1786
-    # spa.latitude      = 39.742476
-    # spa.elevation     = 1830.14
-    # spa.pressure      = 820
-    # spa.temperature   = 11
-    # spa.slope         = 30
-    # spa.azm_rotation  = -10
-    # spa.atmos_refract = 0.5667
-    # spa.function      = SPA_FUNC.SPA_ALL
-
-    spa.year          = 2020
-    spa.month         = 5
-    spa.day           = 1
+    spa.year          = 2003
+    spa.month         = 10
+    spa.day           = 17
     spa.hour          = 12
     spa.minute        = 30
     spa.second        = 30
-    spa.timezone      = +8.0
+    spa.timezone      = -7.0
     spa.delta_ut1     = 0
     spa.delta_t       = 67
-    spa.longitude     = 110+24/60+32/3600
-    spa.latitude      = 21+13/60+12/3600
-    spa.elevation     = 10
+    spa.longitude     = -105.1786
+    spa.latitude      = 39.742476
+    spa.elevation     = 1830.14
     spa.pressure      = 820
     spa.temperature   = 11
     spa.slope         = 30
     spa.azm_rotation  = -10
     spa.atmos_refract = 0.5667
     spa.function      = SPA_FUNC.SPA_ALL
+
+    # spa.year          = 2020
+    # spa.month         = 5
+    # spa.day           = 1
+    # spa.hour          = 12
+    # spa.minute        = 30
+    # spa.second        = 30
+    # spa.timezone      = +8.0
+    # spa.delta_ut1     = 0
+    # spa.delta_t       = 67
+    # spa.longitude     = 110+24/60+32/3600
+    # spa.latitude      = 21+13/60+12/3600
+    # spa.elevation     = 10
+    # spa.pressure      = 820
+    # spa.temperature   = 11
+    # spa.slope         = 30
+    # spa.azm_rotation  = -10
+    # spa.atmos_refract = 0.5667
+    # spa.function      = SPA_FUNC.SPA_ALL
 
     ##call the SPA calculate function and pass the SPA structure
 
@@ -1223,4 +1221,3 @@ if __name__ == '__main__':
 # //Sunset:        17:20:19 Local Time
 # //
 # /////////////////////////////////////////////
-#
