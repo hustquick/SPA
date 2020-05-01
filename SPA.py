@@ -88,8 +88,8 @@ class spa_data():
     x3 = None         ##argument latitude (moon) [degrees]
     x4 = None         ##ascending longitude (moon) [degrees]
 
-    del_psi = [0]    ##nutation longitude [degrees]
-    del_epsilon = [0]  ##nutation obliquity [degrees]
+    del_psi = [None]    ##nutation longitude [degrees]
+    del_epsilon = [None]  ##nutation obliquity [degrees]
     epsilon0 = None   ##ecliptic mean obliquity [arc seconds]
     epsilon = None    ##ecliptic true obliquity  [degrees]
 
