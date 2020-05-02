@@ -72,6 +72,10 @@ if result == 0:  # check for SPA errors
     print("高度角：        %.6f 度\n" % spa.e)
     print("方位角：        %.6f 度\n" % spa.azimuth)
 
+    min = 60.0 * (spa.suntransit - int(spa.suntransit))
+    sec = 60.0 * (min - int(min))
+    print("太阳正午时间：   %02d:%02d:%02d 当地时间\n" % (int(spa.suntransit), int(min), int(sec)))
+
     min = 60.0 * (spa.sunrise - int(spa.sunrise))
     sec = 60.0 * (min - int(min))
     print("日出：          %02d:%02d:%02d 当地时间\n" % (int(spa.sunrise), int(min), int(sec)))
