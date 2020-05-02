@@ -40,7 +40,6 @@ import numpy as np
 from enum import Enum
 from copy import deepcopy
 
-PI = np.pi
 SUN_RADIUS = 0.26667
 
 class spa_data():
@@ -1155,20 +1154,20 @@ if __name__ == '__main__':
 
     # spa.year          = 2020
     # spa.month         = 5
-    # spa.day           = 1
+    # spa.day           = 2
     # spa.hour          = 12
-    # spa.minute        = 30
-    # spa.second        = 30
+    # spa.minute        = 12
+    # spa.second        = 12
     # spa.timezone      = +8.0
     # spa.delta_ut1     = 0
     # spa.delta_t       = 67
-    # spa.longitude     = 110+24/60+32/3600
-    # spa.latitude      = 21+13/60+12/3600
+    # spa.longitude     = 110.7659
+    # spa.latitude      = 21.4571
     # spa.elevation     = 10
-    # spa.pressure      = 820
-    # spa.temperature   = 11
-    # spa.slope         = 30
-    # spa.azm_rotation  = -10
+    # spa.pressure      = 760
+    # spa.temperature   = 26
+    # spa.slope         = 0
+    # spa.azm_rotation  = 0
     # spa.atmos_refract = 0.5667
     # spa.function      = SPA_FUNC.SPA_ALL
 
@@ -1179,45 +1178,47 @@ if __name__ == '__main__':
     if result == 0:  ##check for SPA errors
         ##display the results inside the SPA structure
 
-        print("Julian Day:    %.6f\n"%spa.jd)
-        print("L:             %.6e degrees\n"%spa.l)
-        print("B:             %.6e degrees\n"%spa.b)
-        print("R:             %.6f AU\n"%spa.r)
-        print("H:             %.6f degrees\n"%spa.h)
-        print("Delta Psi:     %.6e degrees\n"%spa.del_psi[0])
-        print("Delta Epsilon: %.6e degrees\n"%spa.del_epsilon[0])
-        print("Epsilon:       %.6f degrees\n"%spa.epsilon)
-        print("Zenith:        %.6f degrees\n"%spa.zenith)
-        print("Azimuth:       %.6f degrees\n"%spa.azimuth)
-        print("Incidence:     %.6f degrees\n"%spa.incidence)
+        print("儒略日：        %.6f\n"%spa.jd)
+        print("地球日心经度：   %.6f 度\n"%spa.l)
+        print("地球日心纬度：   %.6e 度\n"%spa.b)
+        print("地日距离：       %.6f 天文长度\n"%spa.r)
+        print("观察者时角：     %.6f 度\n"%spa.h)
+        print("章动经度：       %.6e 度\n"%spa.del_psi[0])
+        print("章动倾斜角：     %.6e 度\n"%spa.del_epsilon[0])
+        print("黄道倾斜度：     %.6f 度\n"%spa.epsilon)
+        print("赤纬角：        %.6f 度\n" % spa.delta_prime[0])
+        print("天顶角：        %.6f 度\n"%spa.zenith)
+        print("高度角：        %.6f 度\n" % spa.e)
+        print("方位角：        %.6f 度\n"%spa.azimuth)
 
         min = 60.0*(spa.sunrise - int(spa.sunrise))
         sec = 60.0*(min - int(min))
-        print("Sunrise:       %02d:%02d:%02d Local Time\n"%(int(spa.sunrise), int(min), int(sec)))
+        print("日出：          %02d:%02d:%02d 当地时间\n"%(int(spa.sunrise), int(min), int(sec)))
 
         min = 60.0*(spa.sunset - int(spa.sunset))
         sec = 60.0*(min - int(min))
-        print("Sunset:        %02d:%02d:%02d Local Time\n"%(int(spa.sunset), int(min), int(sec)))
+        print("日落：          %02d:%02d:%02d 当地时间\n"%(int(spa.sunset), int(min), int(sec)))
 
     else:
-        print("SPA Error Code: %d\n"%result)
+        print("SPA错误代码: %d\n"%result)
 
 #
 # /////////////////////////////////////////////
-# // The output of this program should be:
+# // 程序的输出应该为:
 # //
-# //Julian Day:    2452930.312847
-# //L:             2.401826e+01 degrees
-# //B:             -1.011219e-04 degrees
-# //R:             0.996542 AU
-# //H:             11.105902 degrees
-# //Delta Psi:     -3.998404e-03 degrees
-# //Delta Epsilon: 1.666568e-03 degrees
-# //Epsilon:       23.440465 degrees
-# //Zenith:        50.111622 degrees
-# //Azimuth:       194.340241 degrees
-# //Incidence:     25.187000 degrees
-# //Sunrise:       06:12:43 Local Time
-# //Sunset:        17:20:19 Local Time
+# //儒略日：        2452930.312847
+# //地球日心经度：   2.401826e+01 度
+# //地球日心纬度：   -1.011219e-04 度
+# //地日距离：       0.996542 AU
+# //观察者时角：     11.105902 度
+# //章动经度：       -3.995186e-03 度
+# //章动倾斜角：     1.667149e-03 度
+# //黄道倾斜度：     23.440465 度
+# //赤纬角：        -9.316179 度
+# //天顶角：        50.111622 度
+# //高度角：        39.888378 度
+# //方位角：        194.340241 度
+# //日出：          06:12:43 当地时间
+# //日落：          17:20:19 当地时间
 # //
 # /////////////////////////////////////////////

@@ -5,7 +5,7 @@ import geocoder
 def get_IP():
     res = requests.get('http://jsonip.com', timeout=10)
     ip = res.json()['ip']
-    print("Your IP address is:\n" + ip)
+    print("你的IP地址为:\n" + ip)
     return ip
 
 
@@ -14,7 +14,9 @@ def get_LatLng():
     g = geocoder.ip(ip)
     # g = geocoder.ip('me')
     latlng = g.latlng
-    print("Your latitude is %s\nYour longitude is %s" % (latlng[0], latlng[1]))
+    print("\n根据你的IP地址")
+    # print("你所在城市为:\n" + g.city)
+    print("你的经度为：\n %s \n你的纬度为：\n %s" % (latlng[1], latlng[0]))
     return latlng
 
 
