@@ -1178,30 +1178,30 @@ if __name__ == '__main__':
     if result == 0:  ##check for SPA errors
         ##display the results inside the SPA structure
 
-        print("儒略日：        %.6f\n"%spa.jd)
-        print("地球日心经度：   %.6f 度\n"%spa.l)
-        print("地球日心纬度：   %.6e 度\n"%spa.b)
-        print("地日距离：       %.6f 天文长度\n"%spa.r)
-        print("观察者时角：     %.6f 度\n"%spa.h)
-        print("章动经度：       %.6e 度\n"%spa.del_psi[0])
-        print("章动倾斜角：     %.6e 度\n"%spa.del_epsilon[0])
-        print("黄道倾斜度：     %.6f 度\n"%spa.epsilon)
-        print("赤纬角：        %.6f 度\n" % spa.delta_prime[0])
-        print("天顶角：        %.6f 度\n"%spa.zenith)
-        print("高度角：        %.6f 度\n" % spa.e)
-        print("方位角：        %.6f 度\n"%spa.azimuth)
+        print("{0:10}\t{1:>14.6f}".format("儒略日", spa.jd))
+        print("{0:10}\t{1:>14.6f}{2}".format("地球日心经度", spa.l, " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("地球日心纬度", spa.b, " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("地日距离", spa.r, " 天文单位"))
+        print("{0:10}\t{1:>14.6f}{2}".format("观察者时角", float(spa.h), " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("章动经度", spa.del_psi[0], " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("章动倾斜角", spa.del_epsilon[0], " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("黄道倾斜度", spa.epsilon, " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("赤纬角", spa.delta_prime[0], " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("天顶角", float(spa.zenith), " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("高度角", float(spa.e), " 度"))
+        print("{0:10}\t{1:>14.6f}{2}".format("方位角", float(spa.azimuth), " 度"))
 
         min = 60.0 * (spa.suntransit - int(spa.suntransit))
         sec = 60.0 * (min - int(min))
-        print("太阳正午时间：   %02d:%02d:%02d 当地时间\n" % (int(spa.suntransit), int(min), int(sec)))
+        print("太阳正午时间：     %02d:%02d:%02d 当地时间\n" % (int(spa.suntransit), int(min), int(sec)))
 
         min = 60.0*(spa.sunrise - int(spa.sunrise))
         sec = 60.0*(min - int(min))
-        print("日出：          %02d:%02d:%02d 当地时间\n"%(int(spa.sunrise), int(min), int(sec)))
+        print("日出：            %02d:%02d:%02d 当地时间\n"%(int(spa.sunrise), int(min), int(sec)))
 
         min = 60.0*(spa.sunset - int(spa.sunset))
         sec = 60.0*(min - int(min))
-        print("日落：          %02d:%02d:%02d 当地时间\n"%(int(spa.sunset), int(min), int(sec)))
+        print("日落：            %02d:%02d:%02d 当地时间\n"%(int(spa.sunset), int(min), int(sec)))
 
     else:
         print("SPA错误代码: %d\n"%result)
@@ -1210,20 +1210,20 @@ if __name__ == '__main__':
 # /////////////////////////////////////////////
 # // 程序的输出应该为:
 # //
-# //儒略日：        2452930.312847
-# //地球日心经度：   2.401826e+01 度
-# //地球日心纬度：   -1.011219e-04 度
-# //地日距离：       0.996542 AU
-# //观察者时角：     11.105902 度
-# //章动经度：       -3.995186e-03 度
-# //章动倾斜角：     1.667149e-03 度
-# //黄道倾斜度：     23.440465 度
-# //赤纬角：        -9.316179 度
-# //天顶角：        50.111622 度
-# //高度角：        39.888378 度
-# //方位角：        194.340241 度
-# //太阳正午时间：   11:46:04 当地时间
-# //日出：          06:12:43 当地时间
-# //日落：          17:20:19 当地时间
+# 儒略日       	2452930.312847
+# 地球日心经度    	     24.018262 度
+# 地球日心纬度    	     -0.000101 度
+# 地日距离      	          0.996542 天文单位
+# 观察者时角     	         11.105902 度
+# 章动经度      	         -0.003995 度
+# 章动倾斜角     	          0.001667 度
+# 黄道倾斜度     	         23.440465 度
+# 赤纬角       	         -9.316179 度
+# 天顶角       	         50.111622 度
+# 高度角       	         39.888378 度
+# 方位角       	        194.340241 度
+# 太阳正午时间：       11:46:04 当地时间
+# 日出：              06:12:43 当地时间
+# 日落：              17:20:19 当地时间
 # //
 # /////////////////////////////////////////////

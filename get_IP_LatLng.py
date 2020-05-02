@@ -16,7 +16,7 @@ def get_LatLng():
     latlng = g.latlng
     print("\n根据你的IP地址")
     # print("你所在城市为:\n" + g.city)
-    print("你的经度为：\n %s \n你的纬度为：\n %s" % (latlng[1], latlng[0]))
+    print("你的经度为：\t%8.4f \n你的纬度为：\t%8.4f" % (latlng[1], latlng[0]))
     return latlng
 
 
