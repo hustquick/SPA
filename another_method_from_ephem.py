@@ -23,6 +23,9 @@ sun, moon = ephem.Sun(), ephem.Moon()
 sun.compute(gatech)
 moon.compute(gatech)
 
+print("太阳高度角: %s \n太阳方位角: %s" % (sun.alt, sun.az))
+print("月球高度角: %s \n月球方位角: %s" % (moon.alt, moon.az))
+
 previous_midnight = ephem.date(datetime.date.today())
 next_midnight = ephem.date(datetime.date.today()) + 1
 
@@ -41,10 +44,10 @@ if sun_setting_local > next_midnight:
 if sun_transit_local < previous_midnight:
     sun_transit = gatech.next_transit(sun)
 
-print("太阳高度角: %s \n太阳方位角: %s" % (sun.alt, sun.az))
+
 print("日出时间: %s \n日落时间: %s" % (ephem.localtime(sun_rising),
                                                 ephem.localtime(sun_setting)))
-print("太阳正午时间: %s" % ephem.localtime(sun_transit))
+print("太阳当顶时间: %s" % ephem.localtime(sun_transit))
 
 
 moon_rising = gatech.previous_rising(moon)
@@ -61,7 +64,7 @@ if moon_setting_local > next_midnight:
 if moon_transit_local < previous_midnight:
     moon_transit = gatech.next_transit(moon)
 
-print("月球高度角: %s \n月球方位角: %s" % (moon.alt, moon.az))
+
 print("月出时间: %s \n月落时间: %s" % (ephem.localtime(moon_rising),
                                                 ephem.localtime(moon_setting)))
 print("月球当顶时间: %s" % ephem.localtime(moon_transit))
